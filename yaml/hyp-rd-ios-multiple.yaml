@@ -1,0 +1,22 @@
+version: 0.2
+globalTimeout: 150
+testSuiteTimeout: 150
+testSuiteStep: 150
+
+runson: ios
+
+concurrency: 3
+
+autosplit: true
+
+retryOnFailure: false
+maxRetries: 1
+
+appium: true
+framework:
+  name: maven/testng
+  defaultReports: false
+  discoveryType: xmltest
+  flags: ["-Pios-parallel"]
+
+jobLabel: ['HYP', 'Real Device', 'iOS', 'Multiple Device']
