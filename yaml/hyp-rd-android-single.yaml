@@ -1,13 +1,8 @@
 version: 0.2
-globalTimeout: 150
-testSuiteTimeout: 150
-testSuiteStep: 150
-
 runson: android
 
-concurrency: 5
-
 autosplit: true
+concurrency: 3
 
 retryOnFailure: false
 maxRetries: 1
@@ -19,4 +14,4 @@ framework:
   discoveryType: xmltest
   flags: ["-Pandroid-single"]
 
-jobLabel: ['HYP', 'Real Device', 'Android', 'Single Device']
+jobLabel: ['HYP-RD', 'Android', 'Single Device']
