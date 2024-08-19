@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [linux-latest]
+        os: [linux]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
