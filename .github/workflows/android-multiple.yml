@@ -1,7 +1,5 @@
-name: HyperExecute-RD-Android-Multiple
+name: HyperExecute-Real-Device-Android
 on:
-  schedule:
-    - cron: "32 5 * * 1"
   workflow_dispatch:
     inputs:
       username:
@@ -14,29 +12,33 @@ on:
         description: Link to the HyperExecute sample repo
         default: https://github.com/john190501/hyp-real-device-appium
         required: true
+
 jobs:
-  HyperExecute-Selenium:
+  HyperExecute-Real-Device-Android:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        os: [linux]
+        os: [linux-latest]
+
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Execcuting the Project
+      - name: Starting CLI testing
+        id: testng
         shell: bash
         run: |
-          echo "Step 1: Downloading the Sample Project"
+          echo "Step 1: Downloading sample suite"
           git clone ${{ github.event.inputs.sampleRepoLink }}
-          echo "Step 2: Download the HyperExecute CLI"
+          echo "Step 2: Download CLI"
           cd hyp-real-device-appium
           curl https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute
-          chmod u+x ./hyperexecute
-          echo "Step 3: Setting up the Credentials"
+          echo "Step 3: Setting Environment Variables"
           export LT_USERNAME=${{ github.event.inputs.username }}
           export LT_ACCESS_KEY=${{ github.event.inputs.accessKey }}
-          echo "Step 4: Execute the Test Suite"
+          echo $LT_USERNAME
+          echo $LT_ACCESS_KEY
+          echo "Step 4: Executing the test"
           ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY --config yaml/hyp-rd-android-multiple.yaml
